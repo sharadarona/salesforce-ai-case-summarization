@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>CaseAISummaryQueueable</members>
+        <members>CaseAISummaryQueueableTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Case.AI_Summary__c</members>
+        <members>Case.AI_Model_Used__c</members>
+        <members>Case.AI_Summary_Generated_At__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Case_AI_Summary_On_Create</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>AI_Middleware</members>
+        <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>AI_Case_Summary_Access</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>66.0</version>
+</Package>

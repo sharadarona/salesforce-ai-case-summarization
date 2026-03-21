@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AI_Summary__c</fullName>
+    <label>AI Summary</label>
+    <type>LongTextArea</type>
+    <length>32768</length>
+    <visibleLines>6</visibleLines>
+    <description>AI-generated summary of the Case. Auto-populated by the FastAPI middleware via OpenAI. Contains 3 structured bullet points: PROBLEM, SENTIMENT, and ACTION. Do not edit manually — any manual change will be overwritten on next AI refresh.</description>
+    <trackFeedHistory>false</trackFeedHistory>
+</CustomField>

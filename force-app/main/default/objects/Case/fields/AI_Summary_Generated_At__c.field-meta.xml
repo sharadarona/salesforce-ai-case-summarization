@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AI_Summary_Generated_At__c</fullName>
+    <label>AI Summary Generated At</label>
+    <type>DateTime</type>
+    <description>Timestamp (UTC) when the AI summary was last generated. Used for auditing, detecting stale summaries, and SLA reporting. Populated automatically by the middleware response field generated_at.</description>
+    <trackFeedHistory>false</trackFeedHistory>
+</CustomField>

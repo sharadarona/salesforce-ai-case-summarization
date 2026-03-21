@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Calls CaseAISummaryQueueable.enqueueSummaryGeneration() which enqueues an async job to call the FastAPI AI middleware and write the summary back to the Case.</description>
+        <name>Enqueue_AI_Summary_Generation</name>
+        <label>Enqueue AI Summary Generation</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <actionName>CaseAISummaryQueueable</actionName>
+        <actionType>apex</actionType>
+        <faultConnector>
+            <targetReference>Handle_Fault</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>caseIds</name>
+            <value>
+                <elementReference>caseIdCollection</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>CaseAISummaryQueueable</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Adds the triggering Case ID into the collection variable for the InvocableMethod input</description>
+        <name>Assign_CaseId_to_Collection</name>
+        <label>Add Case ID to Collection</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignmentItems>
+            <assignToReference>caseIdCollection</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Enqueue_AI_Summary_Generation</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Fault path - silently absorbs errors so the Case save is never blocked. Error is visible in Flow debug logs.</description>
+        <name>Handle_Fault</name>
+        <label>Handle Fault</label>
+        <locationX>440</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>caseIdCollection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>FAULT_LOGGED</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Triggers AI Case Summary generation when a new Case is created. Calls CaseAISummaryQueueable InvocableMethod to enqueue an async callout to the FastAPI AI middleware.</description>
+    <environments>Default</environments>
+    <label>Case AI Summary - On Create</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_CaseId_to_Collection</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Collection of Case IDs passed to the InvocableMethod</description>
+        <name>caseIdCollection</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
