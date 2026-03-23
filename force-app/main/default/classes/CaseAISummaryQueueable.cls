@@ -3,7 +3,7 @@
  *               to generate an AI summary for a newly created Case.
  *               Invoked by the Record-Triggered Flow on Case creation.
  *
- * @author       Your Name
+ * @author       Sharad Yadav
  * @created      2026
  *
  * FIX (v2): AI_Summary__c is a LongTextArea field. Salesforce does NOT
